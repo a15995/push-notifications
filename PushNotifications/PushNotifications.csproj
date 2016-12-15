@@ -61,6 +61,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MyBroadcastReceiver.cs" />
+    <Compile Include="NotificationBuilder.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

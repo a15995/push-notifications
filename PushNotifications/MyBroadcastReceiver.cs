@@ -10,14 +10,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using System.Collections.Generic;
-using System.Text;
-using Android.App;
-using Android.Content;
 using Android.Util;
 using Gcm.Client;
 using WindowsAzure.Messaging;
 
+// Disse permissions kan også sættes i manifestet (Properties / Android Manifest / Required permissions)
 [assembly: Permission(Name = "@PACKAGE_NAME@.permission.C2D_MESSAGE")]
 [assembly: UsesPermission(Name = "@PACKAGE_NAME@.permission.C2D_MESSAGE")]
 [assembly: UsesPermission(Name = "com.google.android.c2dm.permission.RECEIVE")]
@@ -41,7 +38,7 @@ namespace PushNotifications
     {
         public static string[] SENDER_IDS = new string[] { Constants.SenderID };
 
-        public const string TAG = "MyBroadcastReceiver-GCM";
+        public const string TAG = "MyBroadcastReceiver-GCM"; // Nedarvet fra GcmBroadcastReceiverBase - ansvarlig for beskeder
     }
 
     [Service] // Must use the service tag
@@ -55,19 +52,19 @@ namespace PushNotifications
             Log.Info(MyBroadcastReceiver.TAG, "PushHandlerService() constructor");
         }
 
-        protected override void OnRegistered(Context context, string registrationId)
+        protected override void OnRegistered(Context context, string registrationId) // Når device registreres
         {
             Log.Verbose(MyBroadcastReceiver.TAG, "GCM Registered: " + registrationId);
-            RegistrationID = registrationId;
+            RegistrationID = registrationId; // Får et regId ned fra Google, som holder i 2-3 uger
 
             createNotification("PushHandlerService-GCM Registered...",
-                                "The device has been Registered!");
+                                "The device has been Registered!"); // Denne popper ikke op på Emulator i nærværende eksempel
 
             Hub = new NotificationHub(Constants.NotificationHubName, Constants.ListenConnectionString,
-                                        context);
+                                        context); // Et objekt MS har lavet til Xamarin, modtager Hubname og ConnectionString fra Constants.cs
             try
             {
-                Hub.UnregisterAll(registrationId);
+                Hub.UnregisterAll(registrationId); // Fjerner tags
             }
             catch (Exception ex)
             {
@@ -87,7 +84,7 @@ namespace PushNotifications
             }
         }
 
-        protected override void OnMessage(Context context, Intent intent)
+        protected override void OnMessage(Context context, Intent intent) // Når en besked går ind - Intent er et objekt med mange variable
         {
             Log.Info(MyBroadcastReceiver.TAG, "GCM Message Received!");
 
@@ -99,7 +96,7 @@ namespace PushNotifications
                     msg.AppendLine(key + "=" + intent.Extras.Get(key).ToString());
             }
 
-            string messageText = intent.Extras.GetString("message");
+            string messageText = intent.Extras.GetString("message"); // Selvsamme message fra JSON objekt sendt fra Azure-portalen
             if (!string.IsNullOrEmpty(messageText))
             {
                 createNotification("New hub message!", messageText);
@@ -167,10 +164,6 @@ namespace PushNotifications
         {
             Log.Error(MyBroadcastReceiver.TAG, "GCM Error: " + errorId);
         }
-
-
-
     }
-
 }
 

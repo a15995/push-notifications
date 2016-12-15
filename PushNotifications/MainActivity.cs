@@ -33,7 +33,7 @@ namespace PushNotifications
 
             // Register for push notifications
             Log.Info("MainActivity", "Registering...");
-            GcmClient.Register(this, Constants.SenderID);
+            GcmClient.Register(this, Constants.SenderID); // Tager SenderID fra Constants.cs
         }
     }
 }
