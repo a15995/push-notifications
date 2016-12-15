@@ -22,9 +22,7 @@ namespace PushNotifications
 
             // Get your button from the layout resource,
             // and attach an event to it
-            Button button = FindViewById(Resource.Id.myButton);
-
-            RegisterWithGCM();
+            
         }
 
         private void RegisterWithGCM() // Create the following method in the MainActivity class

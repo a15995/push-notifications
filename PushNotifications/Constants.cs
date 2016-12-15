@@ -14,7 +14,7 @@ namespace PushNotifications
 {
     public static class Constants
     {
-        public const string SenderID = "AIzaSyD-6WIgLWXBNPc2s-t6_alzRlpgnxjvyU4"; // Google API Project Number
+        public const string SenderID = "274906423505"; // Google API Project Number
         public const string ListenConnectionString = "Endpoint=sb://sorensnotificationnamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=LH0ql+BUULTPiG6GXVf0hyu4yx3NDh+GK68+O+gojoM=";
         public const string NotificationHubName = "sorensnotificationhub";
     }
