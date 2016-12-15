@@ -136,7 +136,7 @@ namespace PushNotifications
 
             MainActivity.instance.RunOnUiThread(() => {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.instance);
-                AlertDialog alert = dlg.Create();
+                AlertDialog alert = dlg.Create(); // Alert box, der kun virker i Android (OK/DISMISS)
                 alert.SetTitle(title);
                 alert.SetButton("Ok", delegate {
                     alert.Dismiss();
